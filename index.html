@@ -21,6 +21,7 @@
       <button class="he-btn" id="saveBtn">💾 Save</button>
       <button class="he-btn primary" id="runBtn">▶ Run</button>
       <button class="he-btn" id="newTabBtn">↗ New Tab</button>
+      <button class="he-btn" id="searchBtn">🔍 Find</button>
       <div class="he-spacer"></div>
       <select class="he-select" id="themeSelect" title="Theme">
         <option value="black">Black theme</option>
@@ -36,10 +37,16 @@
       <div class="he-explorer" data-panel="explorer">
         <div class="he-explorer-head">
           <span class="he-grip" title="Drag to rearrange">⠿</span>
-          <span>📁 Project</span>
+          <button class="he-win" data-win="min" title="Minimize">–</button>
+          <button class="he-win" data-win="max" title="Maximize">▢</button>
+          <div class="he-view-tabs">
+            <button class="he-view-tab active" data-view="project">📁 Project</button>
+            <button class="he-view-tab" data-view="library">📚 Library</button>
+          </div>
           <div class="he-spacer"></div>
           <button class="he-exp-btn" id="newFileBtn" title="New file">📄＋</button>
           <button class="he-exp-btn" id="newFolderBtn" title="New folder">📁＋</button>
+          <button class="he-exp-btn" id="newSnippetBtn" title="New snippet" style="display:none">📚＋</button>
         </div>
         <div class="he-explorer-body he-scroll" id="explorerBody"></div>
       </div>
@@ -47,13 +54,36 @@
       <div class="he-side" data-panel="editor">
         <div class="he-editor-head" id="editorHead">
           <span class="he-grip" title="Drag to rearrange">⠿</span>
+          <button class="he-win" data-win="min" title="Minimize">–</button>
+          <button class="he-win" data-win="max" title="Maximize">▢</button>
           <button class="he-seg active" data-lang="html">HTML</button>
           <button class="he-seg" data-lang="css">CSS</button>
           <button class="he-seg" data-lang="js">JS</button>
           <div class="he-spacer"></div>
+          <button class="he-btn he-mini" id="findInEditorBtn" title="Find (Ctrl+F)">🔍</button>
           <span style="color:var(--muted);font-size:.75rem;padding:0 .5rem" id="activeName"></span>
         </div>
+        <div class="he-search" id="searchBar" style="display:none">
+          <div class="he-search-row">
+            <input type="text" id="searchInput" placeholder="Find across files">
+            <input type="text" id="replaceInput" placeholder="Replace" style="display:none">
+            <button class="he-btn he-mini" id="toggleReplaceBtn">▸ Replace</button>
+            <span id="searchCount" style="color:var(--muted);font-size:.72rem;white-space:nowrap">0 matches</span>
+            <button class="he-btn he-mini" id="searchPrev">↑</button>
+            <button class="he-btn he-mini" id="searchNext">↓</button>
+            <button class="he-btn he-mini" id="replaceBtn" style="display:none">Replace</button>
+            <button class="he-btn he-mini primary" id="replaceAllBtn" style="display:none">All</button>
+            <button class="he-btn he-mini" id="closeSearchBtn">✕</button>
+          </div>
+          <div class="he-search-opts">
+            <span class="he-search-opt" id="optCase">Aa Case</span>
+            <span class="he-search-opt" id="optWord">⬚ Word</span>
+            <span class="he-search-opt" id="optRegex">.* Regex</span>
+          </div>
+          <div class="he-search-results he-scroll" id="searchResults"></div>
+        </div>
         <div class="he-editor-wrap" id="editorWrap">
+          <div class="he-gutter" id="gutter"></div>
           <textarea class="he-textarea" id="editor" spellcheck="false" placeholder="Type here…"></textarea>
           <div class="he-minimap" id="minimap" title="Click or drag to jump">
             <pre class="he-minimap-pre" id="minimapPre"></pre>
@@ -66,6 +96,8 @@
       <div class="he-side" data-panel="preview">
         <div class="he-preview-head">
           <span class="he-grip" title="Drag to rearrange">⠿</span>
+          <button class="he-win" data-win="min" title="Minimize">–</button>
+          <button class="he-win" data-win="max" title="Maximize">▢</button>
           <span>👁 Preview</span>
           <div class="he-spacer"></div>
           <button class="he-btn" id="refreshBtn" style="padding:.25rem .5rem">Refresh</button>
@@ -75,6 +107,7 @@
       </div>
     </div>
 
+    <div class="he-taskbar" id="taskbar" style="display:none"></div>
     <div class="he-console" id="console">
       <div class="he-console-head">
         <span>🖥 Console</span>
@@ -83,6 +116,21 @@
         <button class="he-btn" style="padding:.2rem .5rem;font-size:.75rem" id="hideConsole">Hide</button>
       </div>
       <div class="he-console-body he-scroll" id="consoleBody" style="max-height:26vh"></div>
+    </div>
+
+    <div class="he-modal-overlay" id="snippetModal" style="display:none">
+      <div class="he-modal">
+        <div class="he-modal-head" id="snippetModalHead">New Snippet</div>
+        <div class="he-modal-body">
+          <input type="text" id="snipName" placeholder="Snippet name">
+          <select id="snipLang"><option value="html">HTML</option><option value="css">CSS</option><option value="js">JS</option></select>
+          <textarea id="snipCode" placeholder="Snippet code..."></textarea>
+        </div>
+        <div class="he-modal-foot">
+          <button class="he-btn" id="snipCancel">Cancel</button>
+          <button class="he-btn primary" id="snipSave">Save</button>
+        </div>
+      </div>
     </div>
   </div>
 
