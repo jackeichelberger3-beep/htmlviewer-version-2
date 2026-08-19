@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="he-root" data-theme="black" id="root">
+    <div class="he-topbar">
+      <div class="he-logo"><span class="he-logo-dot"></span>HTML Studio</div>
+      <div class="he-dropdown">
+        <button class="he-btn" id="tplBtn">📋 Templates ▾</button>
+        <div class="he-menu he-scroll" id="tplMenu" style="display:none"></div>
+      </div>
+      <button class="he-btn" id="openBtn">📂 Open</button>
+      <input type="file" id="fileInput" multiple accept=".html,.css,.js,.htm,text/html,text/css,text/javascript" style="display:none">
+      <button class="he-btn" id="newBtn">➕ New</button>
+      <button class="he-btn" id="fmtBtn">✨ Format</button>
+      <button class="he-btn" id="saveBtn">💾 Save</button>
+      <button class="he-btn primary" id="runBtn">▶ Run</button>
+      <button class="he-btn" id="newTabBtn">↗ New Tab</button>
+      <div class="he-spacer"></div>
+      <select class="he-select" id="themeSelect" title="Theme">
+        <option value="black">Black theme</option>
+        <option value="grey">Grey theme</option>
+        <option value="white">White theme</option>
+        <option value="retro">Retro theme</option>
+      </select>
+    </div>
+
+    <div class="he-tabbar he-scroll" id="tabbar"></div>
+
+    <div class="he-main" id="main">
+      <div class="he-explorer" data-panel="explorer">
+        <div class="he-explorer-head">
+          <span class="he-grip" title="Drag to rearrange">⠿</span>
+          <span>📁 Project</span>
+          <div class="he-spacer"></div>
+          <button class="he-exp-btn" id="newFileBtn" title="New file">📄＋</button>
+          <button class="he-exp-btn" id="newFolderBtn" title="New folder">📁＋</button>
+        </div>
+        <div class="he-explorer-body he-scroll" id="explorerBody"></div>
+      </div>
+
+      <div class="he-side" data-panel="editor">
+        <div class="he-editor-head" id="editorHead">
+          <span class="he-grip" title="Drag to rearrange">⠿</span>
+          <button class="he-seg active" data-lang="html">HTML</button>
+          <button class="he-seg" data-lang="css">CSS</button>
+          <button class="he-seg" data-lang="js">JS</button>
+          <div class="he-spacer"></div>
+          <span style="color:var(--muted);font-size:.75rem;padding:0 .5rem" id="activeName"></span>
+        </div>
+        <div class="he-editor-wrap" id="editorWrap">
+          <textarea class="he-textarea" id="editor" spellcheck="false" placeholder="Type here…"></textarea>
+          <div class="he-minimap" id="minimap" title="Click or drag to jump">
+            <pre class="he-minimap-pre" id="minimapPre"></pre>
+            <div class="he-minimap-vp" id="minimapVp"></div>
+          </div>
+          <div class="he-drop-overlay" id="dropOverlay" style="display:none">Drop files to open in new tabs</div>
+        </div>
+      </div>
+
+      <div class="he-side" data-panel="preview">
+        <div class="he-preview-head">
+          <span class="he-grip" title="Drag to rearrange">⠿</span>
+          <span>👁 Preview</span>
+          <div class="he-spacer"></div>
+          <button class="he-btn" id="refreshBtn" style="padding:.25rem .5rem">Refresh</button>
+          <button class="he-btn" id="openNewBtn" style="padding:.25rem .5rem">Open ↗</button>
+        </div>
+        <iframe class="he-preview-frame" id="preview" title="preview" sandbox="allow-scripts allow-modals allow-forms allow-popups"></iframe>
+      </div>
+    </div>
+
+    <div class="he-console" id="console">
+      <div class="he-console-head">
+        <span>🖥 Console</span>
+        <button class="he-btn" style="padding:.2rem .5rem;font-size:.75rem" id="clrBtn">Clear</button>
+        <div class="he-spacer"></div>
+        <button class="he-btn" style="padding:.2rem .5rem;font-size:.75rem" id="hideConsole">Hide</button>
+      </div>
+      <div class="he-console-body he-scroll" id="consoleBody" style="max-height:26vh"></div>
+    </div>
+  </div>
+
+  <div class="he-ctx" id="ctxMenu" style="display:none"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
